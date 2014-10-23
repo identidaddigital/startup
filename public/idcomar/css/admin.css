@@ -1,0 +1,132 @@
+/** TABLE **/
+.table th {
+    font-size: 13px;
+}
+
+.table td {
+    font-size: 12px;
+    padding: 5px 10px 2px;
+    border-bottom: 0;
+    color: #666;
+}
+
+.table-bordered > thead > tr > th,
+.table-bordered > thead > tr > td {
+    border-bottom-width: 0px;
+}
+
+.table td div.bool{
+    
+}
+.table td div.bool span{
+padding: 5px 0;
+width: 50px;
+display: block;
+margin: 0 auto;
+}
+
+/** Modal **/
+#delete-modal {
+    overflow-y: hidden;
+}
+
+body.modal-open,
+.modal-open .navbar-fixed-top, 
+.modal-open .navbar-fixed-bottom {
+    margin-right: 0px;
+}
+
+/** Module part **/
+.module {
+    border: 1px solid #d2d4d8;
+    border-radius: 3px;
+    margin-bottom: 15px;
+}
+
+.module .module-head {
+    background: #f7f8f9;
+    border-bottom: 1px solid #d9d9dd;
+    border-radius: 2px 2px 0 0;
+    height: 40px;
+}
+
+.module .module-head > a,
+.module .module-head > b {
+    color: #727476;
+    display: inline-block;
+    font-weight: 500;
+    padding: 10px 15px;
+}
+
+.module .module-head a {
+    color: inherit;
+    text-decoration: none;
+}
+
+.module .module-head i {
+    font-size: 14px;
+    color: #666;
+    display: inline-block;
+    line-height: 20px;
+}
+
+.module .module-body {
+    background: #fff;
+    padding: 15px;
+    border-radius: 0 0 2px 2px;
+}
+
+.module .module-body .upper-menu {
+    margin: 0 0 10px 0;
+}
+
+.module .module-body [class*="span"] {
+    margin-left: 0px;
+}
+
+.alert {
+    border-radius: 2px;
+    /*margin-bottom: 0px;*/
+}
+
+#delete-item {
+    display: none;
+}
+
+.btn-new {
+    margin-left: 10px;
+}
+
+.status-message {
+    margin-bottom: 15px;
+}
+
+/* switch button */
+.switch-toggle label {
+    color: #424242;
+}
+/* Forms part */
+.form-horizontal .form-group {
+    margin-left: 0;
+    margin-right: 0;
+}
+
+.form-control,
+.uneditable-input {
+    font-size: 13px;
+    margin-bottom: 0;
+    border-radius: 2px;
+    
+}
+
+.input-group-addon {
+    padding: 5px 12px;
+}
+
+.add-input,
+.remove-input {
+    cursor: pointer;
+}
+.pagination{
+    margin: 0;
+}

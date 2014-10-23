@@ -1,0 +1,7 @@
+@extends('admin.template')
+@section('title_page')
+{{ View::make('admin.partials.header-create', (isset($header) ? $header : array()))}}
+@stop
+@section('content')
+    {{ $edit }}
+@stop

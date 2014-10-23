@@ -1,0 +1,18 @@
+<?php
+
+$namespace = 'Modules\{{Modulenames}}\Controllers';
+
+/*
+|--------------------------------------------------------------------------
+| Routes
+|--------------------------------------------------------------------------
+
+*/
+Route::get( '{{modulenames}}',  $namespace.'\{{Modulenames}}Controller@index');
+
+Route::group(array('before' => 'basicAuth', 'prefix' => Config::get('syntara::config.uri')), function()
+{
+	$namespace = 'Modules\{{Modulenames}}\Controllers';
+    
+    Route::controller('{{modulenames}}', $namespace.'\{{Modulenames}}AdminController');
+});

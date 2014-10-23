@@ -1,0 +1,5 @@
+
+		PermissionProvider::createPermission(array('name' => '{{ModuleName}} - List {{model}}', 'value' => '{{ModuleName}}.{{model}}.list', 'description' => 'View the list of {{model}} items in {{ModuleName}} module'));
+		PermissionProvider::createPermission(array('name' => '{{ModuleName}} - Create {{model}}', 'value' => '{{ModuleName}}.{{model}}.create', 'description' => 'Create new {{model}} item in {{ModuleName}} module'));
+		PermissionProvider::createPermission(array('name' => '{{ModuleName}} - Delete {{model}}', 'value' => '{{ModuleName}}.{{model}}.delete', 'description' => 'Delete a {{model}} item in {{ModuleName}} module'));
+		PermissionProvider::createPermission(array('name' => '{{ModuleName}} - Update {{model}}', 'value' => '{{ModuleName}}.{{model}}.update', 'description' => 'Update a {{model}} item in {{ModuleName}} module'));	

@@ -1,0 +1,7 @@
+<?php namespace Modules\{{ModuleName}}\Models;
+
+class {{className}} extends \Eloquent {
+	protected $guarded = array();
+
+	public static $rules = array({{rules}});
+}

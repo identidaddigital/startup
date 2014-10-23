@@ -1,0 +1,180 @@
+<?php namespace Modules\{{ModuleName}}\Controllers;
+
+use Modules\{{ModuleName}}\Models\{{Model}};
+use View;
+use Input;
+use Redirect;
+use Validator;
+use Form;
+use DataGrid;
+use DataForm;
+use DataFilter;
+use PDF;
+use Carbon\Carbon;
+
+
+class {{className}} extends \AdminController {
+
+	/**
+	 * {{Model}} Repository
+	 *
+	 * @var {{Model}}
+	 */
+	protected ${{model}};
+        protected $namespace;
+
+	public function __construct({{Model}} ${{model}})
+	{
+		$this->{{model}} = ${{model}};
+                $this->namespace = 'Modules\{{ModuleName}}\Controllers\{{className}}';
+	}
+
+	/**
+	 * Display a listing of the resource.
+	 *
+	 * @return Response
+	 */
+	public function getIndex()
+	{
+
+                if ($this->hasAccess(array('{{ModuleName}}.{{model}}.list'))){
+                    $data = $this->buildDataGrid();
+
+                    $data['header'] = array(
+                            "title" => trans('{{ModuleName}}::{{model}}.general.{{Models}}'),
+                            "actions" => array(
+                                "create" => action($this->namespace.'@anyCreate'),
+                                "export_xls" => action($this->namespace.'@getExport',array('xls')),
+                                "export_pdf" => action($this->namespace.'@getExport',array('pdf'))
+                            )
+                    );
+
+                    return View::make('{{ModuleName}}::{{models}}.admin.index', $data); 
+                }
+
+	}
+
+	/**
+	 * Show the form for creating a new resource.
+	 *
+	 * @return Response
+	 */
+	public function anyCreate()
+	{
+                if ($this->hasAccess(array('{{ModuleName}}.{{model}}.create'))){
+                    $edit = \DataEdit::source(new {{Model}}());
+                    $edit->link('admin/{{models}}',trans('{{ModuleName}}::{{model}}.general.{{Models}}'), "TR",array("class"=>"hidden"))->back();
+
+                    {{create_fields}}
+
+                    $data = array(
+                        'header' => array(
+                            'title' => trans('admin.content.new'),
+                            'actions' => array(
+                                'back' => action($this->namespace.'@getIndex')
+                            ),
+                        )
+                    );
+                    $data['edit'] = $edit;
+
+                    return $edit->view('{{ModuleName}}::{{models}}.admin.create',$data);
+                }
+	}
+
+	
+	public function anyEdit()
+	{
+                if ($this->hasAccess(array('{{ModuleName}}.{{model}}.update'))){
+                    $edit = \DataEdit::source(new {{Model}}());
+
+                    $edit->link('admin/{{models}}',trans('{{ModuleName}}::{{model}}.general.{{Models}}'), "TR",array("class"=>"hidden"))->back();
+
+                    {{create_fields}}
+
+                    $data = array(
+                        'header' => array(
+                            'title' => trans('admin.content.edit'),
+                            'actions' => array(
+                                'back' => action($this->namespace.'@getIndex')
+                            ),
+                        )
+                    );
+                    $data['edit'] = $edit;
+
+                    return $edit->view('{{ModuleName}}::{{models}}.admin.edit',$data);
+                }
+	}
+
+	
+	/**
+	 * Remove the specified resource from storage.
+	 *
+	 * @param  int  $id
+	 * @return Response
+	 */
+	public function getDestroy($id)
+	{
+                if ($this->hasAccess(array('{{ModuleName}}.{{model}}.delete'))){
+                    $this->{{model}}->find($id)->delete();
+
+                    return Redirect::back()->with('message',trans('admin.message.success'));
+                }
+	}
+
+	public function getExport($to)
+        {
+                return $this->buildDataGrid(TRUE,$to);
+	}	
+
+	protected function buildDataGrid($export=FALSE,$to='xls')
+        {
+
+		$return = NULL;
+
+                $this->filter = DataFilter::source($this->{{model}});
+                {{filter_fields}}
+                
+                $this->filter->submit('search');
+                
+                $this->filter->build();
+
+	   	$this->grid = DataGrid::source($this->filter);  //same source types of DataSet
+
+		if (!$export)
+		{
+			$this->grid->paginate(1); //pagination
+			$this->grid->add('chk-all','<span id="chk-all" style="border-radius: 20px;" class="btn btn-xs"><i class="fa fa-square-o"></i></span>',false)->style("width:20px;text-align:center;");	
+		}
+
+	   	{{grid_fields}}
+
+                $this->grid->orderBy('id','desc'); //default orderby
+
+	   	if ($export)
+	   	{
+	   		return parent::exportDataGrid($to);
+	   	}
+	   	else
+	   	{
+	   		return parent::buildDataGrid();	
+	   	}
+
+	}
+
+
+	protected function getRowActions($id){
+
+                $return = array();
+                
+                if ($this->hasAccess(array('{{ModuleName}}.{{model}}.update'))){
+                    $return["edit"] = array('route' => url('admin/{{models}}/edit?modify='.$id),'icon'=> 'pencil');
+                }
+                if ($this->hasAccess(array('{{ModuleName}}.{{model}}.delete'))){
+                    $return["delete"] = array('route' => url('admin/{{models}}/destroy', array($id)),'icon'=>'trash-o');
+                }
+                
+		return $return;
+
+	}
+
+}

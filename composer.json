@@ -1,0 +1,28 @@
+{
+    "name": "idcomar/startup",
+    "description": "",
+    "authors": [
+        {
+            "name": "Lucas Grzina",
+            "email": "lgrzina@identidad-digital.com.ar"
+        }
+    ],
+    "require": {
+        "php": ">=5.4.0",
+        "illuminate/support": "4.2.*",
+        "mrjuliuss/syntara": "1.2.*",
+        "creolab/laravel-modules": "dev-master",
+        "zofe/rapyd": "1.3.*"
+    },
+    "autoload": {
+        "classmap": [
+            "src/migrations",
+            "src/commands"
+            
+        ],
+        "psr-0": {
+            "Idcomar\\Startup\\": "src/"
+        }
+    },
+    "minimum-stability": "dev"
+}
